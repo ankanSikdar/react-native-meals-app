@@ -10,9 +10,15 @@ import {
 } from "react-native";
 
 const MealItem = (props) => {
+  let TouchComp = TouchableOpacity;
+
+  if (Platform.OS === "android" && Platform.Version >= 21) {
+    TouchComp = TouchableNativeFeedback;
+  }
+
   return (
     <View style={styles.mealItem}>
-      <TouchableOpacity onPress={() => props.onSelectMeal}>
+      <TouchComp onPress={props.onSelectMeal}>
         <View>
           <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
             <ImageBackground
@@ -34,7 +40,7 @@ const MealItem = (props) => {
             <Text>{props.affordability.toUpperCase()}</Text>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchComp>
     </View>
   );
 };
